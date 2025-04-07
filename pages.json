@@ -1,0 +1,234 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [
+		{
+			"path" : "pages/userPages/welcome/welcome",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+			
+		},{
+			"path": "pages/tabbar/index/index",
+			"style": {
+				"navigationBarTitleText": "%index.home%"
+			}
+		},{
+			"path": "pages/userPages/login/login",
+			"style": {
+				"navigationBarTitleText": "App"
+			}
+		},
+		{
+			"path": "pages/tabbar/begin/begin",
+			"style": {
+				"navigationBarTitleText": "%index.begin%"
+			}
+		},
+		{
+			"path": "pages/tabbar/history/history",
+			"style": {
+				"navigationBarTitleText": "%index.order%",
+				"enablePullDownRefresh": true
+			}
+		}
+	    ,{
+            "path" : "pages/userPages/register/register",
+            "style" :                                                                                    
+            {
+				"navigationStyle":"custom",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/richText/richText",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%home.txt4%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		,{
+		    "path" : "pages/richText/lates",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "%home.txt8%",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/levelList/levelList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%home.txt11%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/noticList/noticList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt1%",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/userPages/userCenter/userCenter",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt2%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/noticDetail/noticDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt3%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/userPages/userInfo/userInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt4%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/payPassword/payPassword",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt5%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/password/password",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt6%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/withdraw/withdraw",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt7%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/deposit/deposit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt8%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/walletLogs/walletLogs",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt9%",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/userPages/agreement/agreement",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt10%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/bindAccount/bindAccount",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt11%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/companyDesc/companyDesc",
+            "style" :                                                                                    
+            {
+				"navigationStyle":"default",
+                "navigationBarTitleText": "%navtitle.txt12%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		,{
+            "path" : "pages/newsDetail/newsDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "%navtitle.txt13%",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/newsList/newsList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationStyle":"custom",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "App",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+	}
+	// "tabBar": {
+	// 	"color": "transparent",
+	// 	"selectedColor": "transparent",
+	// 	"backgroundColor": "transparent",
+	// 	"borderStyle": "black",
+	// 	"list": [{
+	// 			"pagePath": "pages/tabbar/index/index",
+	// 			"iconPath": "",
+	// 			"selectedIconPath": "",
+	// 			"text": "%index.home%"
+	// 		},
+	// 		{
+	// 			"pagePath": "pages/tabbar/begin/begin",
+	// 			"iconPath": "",
+	// 			"selectedIconPath": "",
+	// 			"text": "%index.begin%"
+	// 		},
+	// 		{
+	// 			"pagePath": "pages/tabbar/history/history",
+	// 			"iconPath": "",
+	// 			"selectedIconPath": "",
+	// 			"text": "%index.order%"
+	// 		}
+	// 	]
+	// }
+}

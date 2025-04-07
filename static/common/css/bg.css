@@ -1,0 +1,9 @@
+page {
+	/* background-image: url('/static/images/common/bg.png'); */
+	background-color: #fff;
+	/* background-size: 100% 100%;
+	background-repeat: no-repeat; */
+	min-height: 100vh;
+	/* background-attachment: fixed; */
+	color: #092C4C !important;
+}

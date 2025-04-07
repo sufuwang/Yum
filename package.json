@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "dev": "uni -p h5",
+        "build:h5": "uni build -p h5"
+    }
+}
