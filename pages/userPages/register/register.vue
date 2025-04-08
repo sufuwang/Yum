@@ -309,6 +309,11 @@ export default {
 			font-size: 28rpx;
 			margin-top: 40rpx;
 			text-align: center;
+			&:hover {
+				color: blue;
+				cursor: pointer;
+				text-decoration: underline;
+			}
 		}
 	}
 
