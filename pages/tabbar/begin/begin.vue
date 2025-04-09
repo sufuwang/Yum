@@ -1,152 +1,148 @@
 <template>
-	<view class="content u-flex-col u-col-center">
-		<!-- 自定义头部 -->
-		<h-header defaultBg="#798DA3" :logo="vuex_config.app_logo"></h-header>
-		<!-- 滚动图片 -->
-		<view class="scroll-img u-m-t-30 u-m-b-30 scroll-horizontal">
-			<scroll-view scroll-x="true" style="height: 380rpx;">
-				<view class="u-flex">
-					<view class="scroll-item" v-for="(item,i) in 5" :key="i">
-						<image :src="'/static/images/start/ad'+i+'.jpg?'+Math.random()" mode="aspectFill"></image>
-						<!-- <view class="pos-desc px-p-l-26 px-p-b-22">
-							<view class="px-font-16">text title</view>
-							<view class="px-font-12">text decription</view>
-						</view> -->
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<!-- 等级 -->
-		<view class="u-flex u-row-between level-box">
-			<view class="u-flex level-title">
-				<image :src="userInfo.level && userInfo.level.img" mode=""></image>
-				<view class="px-m-l-20 px-font-16">{{userInfo.level && userInfo.level.name}}</view>
-			</view>
-			<view class="px-font-14 u-flex" @click="goLevelDesc">
-				<text class="px-m-r-10 level-more">{{$t('home.txt12')}}</text>
-				<!-- <u-icon name="arrow-right" color="#9F9F9F" size="28"></u-icon> -->
-			</view>
-		</view>
-		<!-- 下单区域 -->
-		<view class="handle-warp">
-			<view class="u-flex u-row-between">
-				<view class="circle-progress u-flex u-row-center">
-					<u-circle-progress border-width="16" width="260" bg-color="transparent" active-color="#1675DE" :percent="userInfo.complatePersent" v-if="userInfo.overOrder>0">
-						<view class="progress-content u-text-center">
-							<view class="progress-num px-font-22">{{userInfo.overOrder || 0}}</view>
-							<view class="progress-info px-font-14 px-m-t-12">{{$t('begin.txt20')}}</view>
+	<l-base :logo="vuex_config.app_logo" :activeIndex="1" :scrollDis="scrollDis">
+		<view class="content u-flex-col u-col-center">
+			<!-- 滚动图片 -->
+			<view class="scroll-img u-m-t-30 u-m-b-30 scroll-horizontal">
+				<scroll-view scroll-x="true" style="height: 380rpx;">
+					<view class="u-flex">
+						<view class="scroll-item" v-for="(item,i) in 5" :key="i">
+							<image :src="'/static/images/start/ad'+i+'.jpg?'+Math.random()" mode="aspectFill"></image>
+							<!-- <view class="pos-desc px-p-l-26 px-p-b-22">
+								<view class="px-font-16">text title</view>
+								<view class="px-font-12">text decription</view>
+							</view> -->
 						</view>
-					</u-circle-progress>
-				</view>
-				<view class="circle-progress u-flex u-row-center">
-					<u-circle-progress border-width="16" width="260" bg-color="transparent" active-color="#ea5e5b" :percent="userInfo.lastPersent">
-						<view class="progress-content u-text-center">
-							<view class="progress-num px-font-22">{{userInfo.order_total}}/{{userInfo.level && userInfo.level.order_num}}</view>
-							<view class="progress-info px-font-14 px-m-t-12">{{$t('begin.txt21')}}</view>
-						</view>
-					</u-circle-progress>
-				</view>
-			</view>
-			<view class="btn" @click="starthandle">{{$t('begin.txt1')}}</view>
-			<view class="u-flex px-font-14 u-row-between wealth">
-				<view>
-					<view>{{$t('begin.txt2')}}</view>
-					<view>{{userInfo.today_profit}}<text class="px-m-l-10">SGD</text></view>
-				</view>
-				<view class="u-text-right">
-					<view>{{$t('begin.txt22')}}</view>
-					<view>{{$t('begin.txt23')}}</view>
-				</view>
-			</view>
-			
-			<u-line color="#E5E5E5" :hair-line="false" />
-			<view class="u-flex px-font-14 u-row-between wealth">
-				<view>
-					<view>{{$t('begin.txt4')}}</view>
-					<view>{{userInfo.balance}} <text class="px-m-l-10">SGD</text></view>
-				</view>
-				<view class="u-text-right">
-					<view>{{$t('begin.txt24')}}</view>
-					<view>{{$t('begin.txt25')}}</view>
-				</view>
-			</view>
-			<!-- <view class="btn" @click="starthandle">{{$t('begin.txt1')}}</view> -->
-		</view>
-		<view class="width-688 bottom-tips">
-			<view class="px-font-13 tips-title">{{$t('begin.txt6')}}</view>
-			<view class="px-m-t-10 px-font-11">{{$t('begin.txt7')}}: </view>
-			<view class="px-font-11">{{ vuex_config.operation_time }}</view>
-			<view class="px-font-11">{{$t('begin.txt8')}}!</view>
-		</view>
-		<!-- 自定义loading -->
-		<view class="cus-loading" v-if="showLoading">
-			<image src="/static/images/common/loading.svg" mode=""></image>
-		</view>
-		<!-- 下单弹窗 -->
-		<u-popup mode="bottom" v-model="showPop">
-			<view class="pop-box">
-				<view class="header u-flex u-row-between">
-					<text>{{$t('begin.txt9')}}</text>
-					<image class="close" src="/static/images/start/close-white.png" mode="" @click="closePop"></image>
-				</view>
-				<view class="creat-info u-flex-col u-col-center">
-					<image class="c-icon" :src="goodsInfo.goods_img" mode="heightFix"></image>
-					<view class="c-name px-m-t-20 px-font-18">
-						{{goodsInfo.goods_name}}
 					</view>
-					<view class="money-box u-flex px-m-t-74 px-p-b-50">
-						<view class="box-item">
-							<view class="title px-font-14">
-								{{$t('begin.txt10')}}
+				</scroll-view>
+			</view>
+			<!-- 等级 -->
+			<view class="u-flex u-row-between level-box">
+				<view class="u-flex level-title">
+					<image :src="userInfo.level && userInfo.level.img" mode=""></image>
+					<view class="px-m-l-20 px-font-16">{{userInfo.level && userInfo.level.name}}</view>
+				</view>
+				<view class="px-font-14 u-flex" @click="goLevelDesc">
+					<text class="px-m-r-10 level-more">{{$t('home.txt12')}}</text>
+					<!-- <u-icon name="arrow-right" color="#9F9F9F" size="28"></u-icon> -->
+				</view>
+			</view>
+			<!-- 下单区域 -->
+			<view class="handle-warp">
+				<view class="u-flex u-row-between">
+					<view class="circle-progress u-flex u-row-center">
+						<u-circle-progress border-width="16" width="260" bg-color="transparent" active-color="#1675DE" :percent="userInfo.complatePersent" v-if="userInfo.overOrder>0">
+							<view class="progress-content u-text-center">
+								<view class="progress-num px-font-22">{{userInfo.overOrder || 0}}</view>
+								<view class="progress-info px-font-14 px-m-t-12">{{$t('begin.txt20')}}</view>
 							</view>
-							<view class="nums px-font-18 px-m-t-20">
-								{{goodsInfo.price}} SGD
-							</view>
-						</view>
-						<view class="box-item">
-							<view class="title px-font-14">
-								{{$t('begin.txt11')}}
-							</view>
-							<view class="nums px-font-18 px-m-t-20 profit-num">
-								{{goodsInfo.commission}} SGD
-							</view>
-						</view>
+						</u-circle-progress>
 					</view>
-					<view class="u-flex u-row-between info-list">
-						<view class="label">
-							{{$t('begin.txt12')}}
-						</view>
-						<view class="txt-val">
-							{{goodsInfo.create_time}}
-						</view>
-					</view>
-					<view class="u-flex u-row-between info-list">
-						<view class="label">
-							{{$t('begin.txt13')}}
-						</view>
-						<view class="txt-val">
-							{{goodsInfo.order_no}}
-						</view>
-					</view>
-					<view class="sub-orer-btn" @click="submissionHandle">
-						{{$t('begin.txt14')}}
+					<view class="circle-progress u-flex u-row-center">
+						<u-circle-progress border-width="16" width="260" bg-color="transparent" active-color="#ea5e5b" :percent="userInfo.lastPersent">
+							<view class="progress-content u-text-center">
+								<view class="progress-num px-font-22">{{userInfo.order_total}}/{{userInfo.level && userInfo.level.order_num}}</view>
+								<view class="progress-info px-font-14 px-m-t-12">{{$t('begin.txt21')}}</view>
+							</view>
+						</u-circle-progress>
 					</view>
 				</view>
+				<view class="btn" @click="starthandle">{{$t('begin.txt1')}}</view>
+				<view class="u-flex px-font-14 u-row-between wealth">
+					<view>
+						<view>{{$t('begin.txt2')}}</view>
+						<view>{{userInfo.today_profit}}<text class="px-m-l-10">SGD</text></view>
+					</view>
+					<view class="u-text-right">
+						<view>{{$t('begin.txt22')}}</view>
+						<view>{{$t('begin.txt23')}}</view>
+					</view>
+				</view>
+				
+				<u-line color="#E5E5E5" :hair-line="false" />
+				<view class="u-flex px-font-14 u-row-between wealth">
+					<view>
+						<view>{{$t('begin.txt4')}}</view>
+						<view>{{userInfo.balance}} <text class="px-m-l-10">SGD</text></view>
+					</view>
+					<view class="u-text-right">
+						<view>{{$t('begin.txt24')}}</view>
+						<view>{{$t('begin.txt25')}}</view>
+					</view>
+				</view>
+				<!-- <view class="btn" @click="starthandle">{{$t('begin.txt1')}}</view> -->
 			</view>
-		</u-popup>
-		<!-- 自定义tabbar -->
-		<h-tabbar :activeIndex="1"></h-tabbar>
-	</view>
+			<view class="width-688 bottom-tips">
+				<view class="px-font-13 tips-title">{{$t('begin.txt6')}}</view>
+				<view class="px-m-t-10 px-font-11">{{$t('begin.txt7')}}: </view>
+				<view class="px-font-11">{{ vuex_config.operation_time }}</view>
+				<view class="px-font-11">{{$t('begin.txt8')}}!</view>
+			</view>
+			<!-- 自定义loading -->
+			<view class="cus-loading" v-if="showLoading">
+				<image src="/static/images/common/loading.svg" mode=""></image>
+			</view>
+			<!-- 下单弹窗 -->
+			<u-popup mode="bottom" v-model="showPop">
+				<view class="pop-box">
+					<view class="header u-flex u-row-between">
+						<text>{{$t('begin.txt9')}}</text>
+						<image class="close" src="/static/images/start/close-white.png" mode="" @click="closePop"></image>
+					</view>
+					<view class="creat-info u-flex-col u-col-center">
+						<image class="c-icon" :src="goodsInfo.goods_img" mode="heightFix"></image>
+						<view class="c-name px-m-t-20 px-font-18">
+							{{goodsInfo.goods_name}}
+						</view>
+						<view class="money-box u-flex px-m-t-74 px-p-b-50">
+							<view class="box-item">
+								<view class="title px-font-14">
+									{{$t('begin.txt10')}}
+								</view>
+								<view class="nums px-font-18 px-m-t-20">
+									{{goodsInfo.price}} SGD
+								</view>
+							</view>
+							<view class="box-item">
+								<view class="title px-font-14">
+									{{$t('begin.txt11')}}
+								</view>
+								<view class="nums px-font-18 px-m-t-20 profit-num">
+									{{goodsInfo.commission}} SGD
+								</view>
+							</view>
+						</view>
+						<view class="u-flex u-row-between info-list">
+							<view class="label">
+								{{$t('begin.txt12')}}
+							</view>
+							<view class="txt-val">
+								{{goodsInfo.create_time}}
+							</view>
+						</view>
+						<view class="u-flex u-row-between info-list">
+							<view class="label">
+								{{$t('begin.txt13')}}
+							</view>
+							<view class="txt-val">
+								{{goodsInfo.order_no}}
+							</view>
+						</view>
+						<view class="sub-orer-btn" @click="submissionHandle">
+							{{$t('begin.txt14')}}
+						</view>
+					</view>
+				</view>
+			</u-popup>
+		</view>
+	</l-base>
 </template>
 
 <script>
-	import hTabbar from "@/components/h-tabbar/h-tabbar";
-	import hHeader from "@/components/h-header/h-header";
+	import lBase from "@/layout/l-base";
 	import math from "@/utils/math.js"
 	export default {
 		components: {
-			hTabbar,
-			hHeader
+			lBase
 		},
 		data() {
 			return {

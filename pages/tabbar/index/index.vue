@@ -1,138 +1,133 @@
 <template>
-	<view class="content u-flex-col u-col-center">
-		<!-- 自定义头部 -->
-		<h-header :logo="homeData.config && homeData.config.app_logo" :scrollTop="scrollDis"></h-header>
-		<!-- 用户信息 -->
-		<view class="width-688 user-info u-flex u-row-between" @click="lookUser">
-			<view class="u-flex">
-				<image class="avatar" src="/static/images/common/headimg.jpg" mode=""></image>
-				<view class="u-m-l-36">
-					<view class="u-flex u-font-40">
-						<view>{{userInfo.username}}</view>
-						<image class="user-level-icon u-m-l-36" :src="userInfo.level && userInfo.level.img" mode=""></image>
-					</view>
-					<view class="u-font-32 u-m-t-10">Balance：{{userInfo.balance}} SGD</view>
-				</view>
-			</view>
-			<u-icon name="arrow-right" color="#FFFFFF" size="28"></u-icon>
-		</view>
-		<!-- 新闻 -->
-		<view class="width-688 news-box">
-			<view class="u-flex u-row-between">
-				<view class="gradual-color">
-					{{$t('home.txt15')}}
-				</view>
-				<view class="px-font-14 more-color" @click="goNewsList">
-					<text class="px-m-r-10">{{$t('home.txt12')}}</text>
-				</view>
-			</view>
-			<view class="news-grid u-flex u-row-between" v-if="newsBannerList.length>0">
-				<view class="img-box" @click="jumpDetail(newsBannerList[0].id)">
-					<image class="big-img" :src="newsBannerList[0].img" mode="aspectFill" :style="{width:newsBannerList.length<3?'width-688':'454rpx'}"></image>
-					<view class="pos-desc px-p-l-30 px-p-b-20">
-						<view class="px-font-16 text-line1">{{newsBannerList[0].title}}</view>
-						<view class="px-font-12">{{newsBannerList[0].author}}</view>
-					</view>
-				</view>
-				<view class="small-img u-flex-col u-row-between" v-if="newsBannerList.length>2">
-					<view class="img-box" @click="jumpDetail(newsBannerList[1].id)">
-						<image :src="newsBannerList[1].img" mode="aspectFill"></image>
-						<view class="pos-desc px-p-l-18 px-p-b-10">
-							<view class="px-font-12 text-line1">{{newsBannerList[1].title}}</view>
-						</view>
-					</view>
-					<view class="img-box" @click="jumpDetail(newsBannerList[2].id)">
-						<image :src="newsBannerList[2].img" mode="aspectFill"></image>
-						<view class="pos-desc px-p-l-18 px-p-b-10">
-							<view class="px-font-12 text-line1">{{newsBannerList[2].title}}</view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<!-- 功能区 -->
-		<view class="width-688 flot-box u-flex u-flex-wrap u-row-between">
-			<view class="flot-item u-flex" v-for="(item,index) in navList" :key="index" @click="jumpMenu(index)">
-				<image :src="'/static/images/home/home-icon'+(index+1)+'.png'" mode="heightFix"></image>
-				<view class="flot-name"><view>{{item.text}}</view></view>
-			</view>
-		</view>
-		
-		<!-- 等级 -->
-		<view class="width-688 px-m-t-42 flex-self-center level-box">
-			<view class="u-flex u-row-between">
-				<view class="gradual-color">
-					{{$t('home.txt11')}}
-				</view>
-				<view class="px-font-14 more-color" @click="goLevelDesc">
-					<text class="px-m-r-10">{{$t('home.txt12')}}</text>
-				</view>
-			</view>
-			<view class="u-flex px-m-t-30 level-switch">
-				<view v-for="(item,index) in homeData.vip_list" :key="index">
-					<view class="vip-title" :class="{'border-main-color':currentIndex == index}" @click="switchLev(index)">
-						<text>VIP{{(index+1)}}</text>
-					</view>
-				</view>
-			</view>
-			<view class="px-m-t-30 level-content u-flex u-col-top">
-				<image class="lev-img" :src="currentLev.img" mode=""></image>
-				<view class="px-m-l-20 px-m-t-10 px-font-12 u-flex-1">
-					<view class="title px-font-16">
-						{{currentLev.name}}
-					</view>
-					<rich-text :nodes="currentLev.node"></rich-text>
-				</view>
-			</view>
-		</view>
-		<!-- 合作伙伴 -->
-		<view class="scroll-img u-m-t-60 partner scroll-horizontal">
-			<view class="partner-title">
-				{{$t('home.txt13')}}
-			</view>
-			<scroll-view scroll-x="true" style="height: 180rpx;">
+	<l-base :logo="homeData.config && homeData.config.app_logo" :activeIndex="0" :scrollDis="scrollDis">
+		<view class="content u-flex-col u-col-center">
+			<!-- 用户信息 -->
+			<view class="width-688 user-info u-flex u-row-between" @click="lookUser">
 				<view class="u-flex">
-					<view class="scroll-item u-flex" v-for="(item,index) in 14" :key="index">
-						<image :src="'/static/images/partner/com-'+index+'.png?'+Math.random()" mode="widthFix"></image>
+					<image class="avatar" src="/static/images/common/headimg.jpg" mode=""></image>
+					<view class="u-m-l-36">
+						<view class="u-flex u-font-40">
+							<view>{{userInfo.username}}</view>
+							<image class="user-level-icon u-m-l-36" :src="userInfo.level && userInfo.level.img" mode=""></image>
+						</view>
+						<view class="u-font-32 u-m-t-10">Balance：{{userInfo.balance}} SGD</view>
 					</view>
 				</view>
-			</scroll-view>
-		</view>
-		<!-- 内容弹窗 -->
-		<u-popup mode="center" border-radius="12" v-model="showContentPop">
-			<view class="pop-warp">
-				<image class="poa-icon" src="/static/images/home/faq-icon.png" mode="" v-if="currentClick==5 || currentClick==6"></image>
-				<image class="poa-icon" src="/static/images/home/faq-icon.png" mode="" v-if="currentClick==4 || currentClick==7"></image>
-				<view class="pop-box">
-					<view class="pop-type px-font-18">{{typTitle}}</view>
-					<scroll-view class="height-306 scroll-con" scroll-y="true">
-						<u-parse :html="popRichtxt"></u-parse>
-					</scroll-view>
+				<u-icon name="arrow-right" color="#FFFFFF" size="28"></u-icon>
+			</view>
+			<!-- 新闻 -->
+			<view class="width-688 news-box">
+				<view class="u-flex u-row-between">
+					<view class="gradual-color">
+						{{$t('home.txt15')}}
+					</view>
+					<view class="px-font-14 more-color" @click="goNewsList">
+						<text class="px-m-r-10">{{$t('home.txt12')}}</text>
+					</view>
 				</view>
-				<view class="close-warp" @click="closeHandle">
-					{{$t('home.txt14')}}
+				<view class="news-grid u-flex u-row-between" v-if="newsBannerList.length>0">
+					<view class="img-box" @click="jumpDetail(newsBannerList[0].id)">
+						<image class="big-img" :src="newsBannerList[0].img" mode="aspectFill" :style="{width:newsBannerList.length<3?'width-688':'454rpx'}"></image>
+						<view class="pos-desc px-p-l-30 px-p-b-20">
+							<view class="px-font-16 text-line1">{{newsBannerList[0].title}}</view>
+							<view class="px-font-12">{{newsBannerList[0].author}}</view>
+						</view>
+					</view>
+					<view class="small-img u-flex-col u-row-between" v-if="newsBannerList.length>2">
+						<view class="img-box" @click="jumpDetail(newsBannerList[1].id)">
+							<image :src="newsBannerList[1].img" mode="aspectFill"></image>
+							<view class="pos-desc px-p-l-18 px-p-b-10">
+								<view class="px-font-12 text-line1">{{newsBannerList[1].title}}</view>
+							</view>
+						</view>
+						<view class="img-box" @click="jumpDetail(newsBannerList[2].id)">
+							<image :src="newsBannerList[2].img" mode="aspectFill"></image>
+							<view class="pos-desc px-p-l-18 px-p-b-10">
+								<view class="px-font-12 text-line1">{{newsBannerList[2].title}}</view>
+							</view>
+						</view>
+					</view>
 				</view>
 			</view>
-		</u-popup>
-		<!-- 自定义弹窗 -->
-		<view class="mask-pop" v-if="showPop">
-			<view class="pop-cont" @click="laterPage">
-				<image class="img" :src="homeData.config && homeData.config.pop" mode=""></image>
-				<image class="close" src="/static/images/home/close_green.png" mode="" @click.stop="closePop"></image>
+			<!-- 功能区 -->
+			<view class="width-688 flot-box u-flex u-flex-wrap u-row-between">
+				<view class="flot-item u-flex" v-for="(item,index) in navList" :key="index" @click="jumpMenu(index)">
+					<image :src="'/static/images/home/home-icon'+(index+1)+'.png'" mode="heightFix"></image>
+					<view class="flot-name"><view>{{item.text}}</view></view>
+				</view>
+			</view>
+			<!-- 等级 -->
+			<view class="width-688 px-m-t-42 flex-self-center level-box">
+				<view class="u-flex u-row-between">
+					<view class="gradual-color">
+						{{$t('home.txt11')}}
+					</view>
+					<view class="px-font-14 more-color" @click="goLevelDesc">
+						<text class="px-m-r-10">{{$t('home.txt12')}}</text>
+					</view>
+				</view>
+				<view class="u-flex px-m-t-30 level-switch">
+					<view v-for="(item,index) in homeData.vip_list" :key="index">
+						<view class="vip-title" :class="{'border-main-color':currentIndex == index}" @click="switchLev(index)">
+							<text>VIP{{(index+1)}}</text>
+						</view>
+					</view>
+				</view>
+				<view class="px-m-t-30 level-content u-flex u-col-top">
+					<image class="lev-img" :src="currentLev.img" mode=""></image>
+					<view class="px-m-l-20 px-m-t-10 px-font-12 u-flex-1">
+						<view class="title px-font-16">
+							{{currentLev.name}}
+						</view>
+						<rich-text :nodes="currentLev.node"></rich-text>
+					</view>
+				</view>
+			</view>
+			<!-- 合作伙伴 -->
+			<view class="scroll-img u-m-t-60 partner scroll-horizontal">
+				<view class="partner-title">
+					{{$t('home.txt13')}}
+				</view>
+				<scroll-view scroll-x="true" style="height: 180rpx;">
+					<view class="u-flex">
+						<view class="scroll-item u-flex" v-for="(item,index) in 14" :key="index">
+							<image :src="'/static/images/partner/com-'+index+'.png?'+Math.random()" mode="widthFix"></image>
+						</view>
+					</view>
+				</scroll-view>
+			</view>
+			<!-- 内容弹窗 -->
+			<u-popup mode="center" border-radius="12" v-model="showContentPop">
+				<view class="pop-warp">
+					<image class="poa-icon" src="/static/images/home/faq-icon.png" mode="" v-if="currentClick==5 || currentClick==6"></image>
+					<image class="poa-icon" src="/static/images/home/faq-icon.png" mode="" v-if="currentClick==4 || currentClick==7"></image>
+					<view class="pop-box">
+						<view class="pop-type px-font-18">{{typTitle}}</view>
+						<scroll-view class="height-306 scroll-con" scroll-y="true">
+							<u-parse :html="popRichtxt"></u-parse>
+						</scroll-view>
+					</view>
+					<view class="close-warp" @click="closeHandle">
+						{{$t('home.txt14')}}
+					</view>
+				</view>
+			</u-popup>
+			<!-- 自定义弹窗 -->
+			<view class="mask-pop" v-if="showPop">
+				<view class="pop-cont" @click="laterPage">
+					<image class="img" :src="homeData.config && homeData.config.pop" mode=""></image>
+					<image class="close" src="/static/images/home/close_green.png" mode="" @click.stop="closePop"></image>
+				</view>
 			</view>
 		</view>
-		<!-- 自定义tabbar -->
-		<h-tabbar :activeIndex="0"></h-tabbar>
-	</view>
+	</l-base>
 </template>
 
 <script>
-	import hTabbar from "@/components/h-tabbar/h-tabbar";
-	import hHeader from "@/components/h-header/h-header";
+	import lBase from "@/layout/l-base";
 	export default {
 		components: {
-			hTabbar,
-			hHeader
+			lBase
 		},
 		data() {
 			return {
