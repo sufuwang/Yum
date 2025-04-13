@@ -1,24 +1,6 @@
 <template>
 	<!-- 自定义tabbar -->
 	<view class="u-flex u-row-between px-font-12 cus_tabBar">
-		<view class="tabbar-item" @click="jumpPage('/pages/tabbar/index/index')">
-			<view class="sel-icon" v-if="activeIndex == 0">
-				<image
-					class="tab-active-img"
-					src="/static/images/tabbar/home-in.png"
-					mode="heightFix"
-				></image>
-				<view class="tab-txt">
-					{{ $t("index.home") }}
-				</view>
-			</view>
-			<image
-				class="tab-img"
-				src="/static/images/tabbar/home.png"
-				mode="heightFix"
-				v-else
-			></image>
-		</view>
 		<view class="tabbar-item" @click="jumpPage('/pages/tabbar/begin/begin')">
 			<view class="sel-icon" v-if="activeIndex == 1">
 				<image
@@ -58,11 +40,22 @@
 				v-else
 			></image>
 		</view>
-		<view class="tabbar-item" @click="openServe">
+		<view class="tabbar-item" @click="jumpPage('/pages/tabbar/index/index')">
+			<view class="sel-icon" v-if="activeIndex == 0">
+				<image
+					class="tab-active-img"
+					src="/static/images/tabbar/home-in.png"
+					mode="heightFix"
+				></image>
+				<view class="tab-txt">
+					{{ $t("index.home") }}
+				</view>
+			</view>
 			<image
 				class="tab-img"
-				src="/static/images/tabbar/server.png"
+				src="/static/images/tabbar/home.png"
 				mode="heightFix"
+				v-else
 			></image>
 		</view>
 	</view>
