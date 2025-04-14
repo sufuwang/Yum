@@ -1,6 +1,6 @@
 <template>
 	<!-- 自定义tabbar -->
-	<view class="u-flex u-row-between px-font-12 cus_tabBar">
+	<view class="u-flex u-row-around px-font-12 cus_tabBar">
 		<view class="tabbar-item" @click="jumpPage('/pages/tabbar/begin/begin')">
 			<view class="sel-icon" v-if="activeIndex == 1">
 				<image

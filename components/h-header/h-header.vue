@@ -72,7 +72,8 @@ export default {
 	width: 100%;
 	z-index: 999;
 
-	background: rgba(168, 180, 193, .4);
+	background: #f5f5f5;
+	opacity: 0.8;
 	backdrop-filter: blur(6px);
 }
 
